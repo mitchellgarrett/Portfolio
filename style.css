@@ -1,0 +1,142 @@
+/*To load an external style sheet, in the head do: <link rel="stylesheet" type="text/css" href="NAMEOFFILE.css">*/
+
+header {
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	font-size: 3em;
+}
+
+body {
+	font-family: "Lucidia Console", Monaco, monospace;
+	color: #333;
+    background-color: #eee;
+}
+
+/*** Text ***/
+
+article {
+	text-align: center;
+}
+
+h2 {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+ p {
+	 line-height: 200%;
+	 font-size: 0.9em;
+}
+
+hr {
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+/*** Code ***/
+
+pre {
+	text-align: left;
+	border-width:1px;
+	border-style:solid;
+	border-color:#999;
+	font:14px Courier,monospace;
+	padding:1em;
+	tab-size:4;
+	overflow:none;
+	-moz-tab-size:4;
+	-webkit-text-size-adjust:100%
+}
+
+code {
+	font: inherit;
+	color:inherit;
+	font-style:inherit;
+	font-weight:inherit;
+}
+
+article mark,article ins {
+	background-color:#fafa99;
+	color:inherit;
+	font-style:inherit;
+	font-weight:inherit;
+	text-decoration:none
+}
+
+res {
+	color: darkred;
+	font-weight: bold;
+}
+
+obj {
+	color: green;
+	font-weight: bold;
+}
+
+func {
+	font-weight: bold;
+}
+
+prim {
+	color: magenta;
+	font-weight: bold;
+}
+
+/*** Panel ***/
+
+#panel {
+	margin-left: 10%;
+	margin-right: 10%;
+	background-color: #fafafa;
+}
+
+/*** Images ***/
+
+#hover {
+	display: none;
+}
+
+/*** Columns ***/
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/*** Links ***/
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 0.75em 1em;
+	text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #222;
+}
+
+.active {
+  background-color: #333;
+}

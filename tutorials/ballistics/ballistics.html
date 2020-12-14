@@ -1,0 +1,205 @@
+<!Doctype html>
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		<meta property="og:url" content="https://www.garrettemitchell.com/projects/line-em-up">
+		<meta property="og:type" content="website">
+		<meta name="description" content="Unity/C# Tutorials and projects.">
+		<meta name="keywords" content="Programming Tutorials, Unity, C#">
+		<meta name="author" content="Mitchell Garrett">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="../../style.css">
+		<link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico">
+		
+		<script defer src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		
+		<style>
+			p {
+				text-align: left;
+			}
+			
+			h2 {
+				text-align: left;
+			}
+			
+			img {
+				align: middle;
+			}
+		</style>
+		
+		<title>Line 'Em Up</title>
+	
+    </head>
+	
+	<body>
+	
+		<header>
+			Programming Tutorials
+		</header>
+		
+		<nav id="panel">
+			<ul>
+				<li><a href="../../index.html">Home</a></li>
+				<li><a href="../../contact.html">Contact</a></li>
+				<li><a href="../../projects.html">Projects</a></li>
+				<li><a href="../../tutorials.html">Programming Tutorials</a></li>
+			</ul>
+		</nav>
+		
+		<br/><br/>
+		
+		<main id="panel">
+		
+			<article>
+				
+				<h1>Ballistics<hr></h1>
+				
+				<h2>Introduction</h2>
+				<p>
+					In this tutorial we'll be going over how to simulate basic ballistics in Unity.<br/><br/>
+					
+					There are currently two major methods of simulating projectile ballistics in video games. The first is the conventional "physics" based method where, 
+					in Unity, you would attach a <code>Rigidbody</code> component along with a <code>Collider</code> to a <code>GameObject</code>, give it a velocity, and let it go.
+					This method is all well and good, but at high speeds it is often not reliable and there is no guarantee that your projectile will hit what you intend it to.<br/><br/>
+					
+					But what if we want our projectiles to fly around at high speeds, like real-life bullets do? In that case you might opt for the "hitscan" method, where you shoot a ray out of the end
+					of your gun and see if it hits something. This method is much more reliable, but you lose the realism. Hitscans, or raycasts as you might call them, are an instant operation and don't take into account
+					time, bullet drop, windspeed, or any of those cool features you may want to add to make your game feel more realistic.<br/><br/>
+					
+					But what if we could combine these two approaches? What if we could take the realism from the physics-based method and combine it with the reliability and accuracy of the raycast-based method?
+					Well that's exactly what we're going to do in this tutorial.<br/>
+					Let's get started.
+				</p><hr>
+				
+				<h2>Setting Up The Scene</h2>
+				<p>
+					To start, I made a new 3D Unity project (using version 2019.17f1). Using a default plane, I created the "Ground" object we will place everything on top of.
+					To make it not so bland, I gave it a nice green material. Also go ahead and make folders for Materials, Prefabs, and Scripts if you like, just to make things a little more organized.
+				</p>
+				<img src="image1.png" width="75%">
+				<p>
+					Next, let's make the thing we're actually going to shoot out of. I made this mortar-looking thing, but it really doesn't matter what it is.
+					What's really important is the Firepoint, which is where the projectile will be emitted from our launcher.
+				</p>
+				<img src="image2.png" width="75%"><br/><br/>
+				<img src="image3.png" width="25%">
+				<p style="text-align:center"><i>We will come back to this later.</i></p><hr>
+				
+				<h2>Launcher</h2>
+				<p>
+					Now let's get to the code.<br/>
+					To start off let's make a script called <var>Launcher</var>, which will control when and where we shoot our projectiles.<br/><br/>
+					First, we will need two public variables. One a reference to the <code>Transform</code> of the Firepoint object we pointed out earlier and the other
+					a reference to the <code>Prefab</code> of the projectile we will be making shortly.
+				</p>
+				
+				<pre>
+<mark><res>using</res> UnityEngine;</mark>
+
+<mark><res>public class</res> <obj>Launcher</obj> : <obj>MonoBehaviour</obj> {</mark>
+
+	<mark><res>public</res> <obj>Transform</obj> firePoint;</mark>
+	<mark><res>public</res> <obj>GameObject</obj> projectilePrefab</mark>
+	
+<mark>}</mark>
+				</pre>
+				
+				<p>
+					Next, let's fire a projectile whenever we press the spacebar.
+				</p>
+				
+				<pre>
+<res>using</res> UnityEngine;
+
+<res>public class</res> <obj>Launcher</obj> : <obj>MonoBehaviour</obj> {
+
+	<res>public</res> <obj>Transform</obj> firePoint;
+	<res>public</res> <obj>GameObject</obj> projectilePrefab
+	
+<mark>	<res>void</res> <func>Update</func>() {
+		<res>if</res>(<obj>Input</obj>.GetKeyDown(<obj>KeyCode</obj>.Space)) {
+			Fire();
+		}
+	}</mark>
+	
+}
+				</pre>
+				
+				<p>
+					Now let's add the <code>Fire</code> function.<br/>
+					This function will do two things. First, it's going to instantiate a new instance of our projectile prefab (which we still need to make).
+					Then, it's going to access the <var>Projectile</var> script (also need to make) and call its own <code>Fire</code> function.
+				</p>
+				
+				<pre>
+	&hellip;
+	
+<mark>	<res>void</res> <func>Fire</func>() {
+		<obj>Projectile</obj> projectile = Instantiate(projectilePrefab).GetComponent&lt;<obj>Projectile</obj>>();
+		projectile.Fire();
+	}</mark>
+
+}
+				</pre><hr>
+				
+				<h2>Projectile</h2>
+				<p>
+					Now onto the projectile.<br/>
+					Go ahead and make a new script called <var>Projectile</var> and let's get started.
+				</p>
+				<pre>
+<mark><res>using</res> UnityEngine;</mark>
+
+<mark><res>public class</res> <obj>Projectile</obj> : <obj>MonoBehaviour</obj> {</mark>
+
+	<mark><res>public</res> <obj>LayerMask</obj> layer;</mark>
+	
+	<mark><obj>Vector3</obj> currentPosition;</mark>
+	<mark><obj>Vector3</obj> nextPosition;</mark>
+	
+	<mark><obj>Vector3</obj> velocity;</mark>
+	<mark><obj>Vector3</obj> acceleration = <obj>Physics</obj>.gravity;</mark>
+	
+<mark>}</mark>
+				</pre>
+				
+				<p>
+					The <code>LayerMask</code> will be used to determine which layers the projectile can or cannot hit. This is useful if you want certain objects to be ignored by flying projectiles.<br/>
+					<code>currentPosition</code> will, like its name suggests, store the position of the projectile in the current frame, while <code>nextPosition</code> will be its position in the next frame.<br/>
+					<code>velocity</code> is the velocity of the projectile and will be modified each frame by the <code>acceleration</code>, which we will set to Unity's default value for gravity.<br/><br/>
+					Now let's finally implement the <code>Fire</code> method.
+				</p>
+				
+				<pre>
+	&hellip;
+	
+<mark>	<res>void</res> <func>Fire</func>(<obj>Vector3</obj> position, <obj>Vector3</obj> direction) {
+		currentPosition = position;
+		velocity = direction.normalized * speed + acceleration * <obj>Time</obj>.fixedDeltaTime;
+		nextPosition = currentPosition + velocity * <obj>Time</obj>.fixedDeltaTime;
+        transform.position = currentPosition;
+	}</mark>
+
+}
+				</pre>
+				
+				<p>
+					Several things are going on here, so let's break it down.<br/>
+					First, we are assigning <code>currentPosition</code> to the <code>postition</code> parameter in the function, denoting where the projectile will be shot from. Nothing fancy here.<br/><br/>
+					Second, we are initializing <code>velocity</code> by outlining the kinematic equation: $$ v = v_0 + at $$
+					Where \(v_0\) is replaced with <code>direction.normalized * speed</code> and \(at\) is replaced with <code>acceleration * <obj>Time</obj>.fixedDeltaTime</code>.<br/>
+					Next, we are doing the same thing with <code>nextPosition</code>, except now we are using the kinematic: $$ x = x_0 + v_0t + \frac{1}{2}at^2 $$
+					Where <code>currentPostition</code> is substituted for \(x_0\) and <code>velocity * <obj>Time</obj>.fixedDeltaTime</code> for \(v_0t\). 
+					The \(\frac{1}{2}at^2\) part can be skipped as we are aleady accelerating the <code>velocity</code> vector in the previous line.<br/><br/>
+					Lastly, we are setting the position of the <code>GameObject</code> to <code>currentPosition.</code>
+				</p>
+				
+			</article>
+		
+		</main>
+		
+	</body>
+	
+<html>

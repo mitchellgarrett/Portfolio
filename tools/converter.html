@@ -1,0 +1,96 @@
+<!Doctype html>
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		<meta property="og:url" content="https://www.garrettemitchell.com/contact">
+		<meta property="og:type" content="website">
+		<meta name="description" content="Unity/C# Tutorials and projects.">
+		<meta name="keywords" content="Programming Tutorials, Unity, C#">
+		<meta name="author" content="Mitchell Garrett">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link rel="stylesheet" type="text/css" href="../style.css">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+		
+		<title>Converter</title>
+	
+    </head>
+	
+	<body>
+	
+		<header>
+			Converter
+		</header>
+		
+		<nav id="panel">
+			<ul>
+				<li><a href="../index.html">Home</a></li>
+				<li><a href="../contact.html">Contact</a></li>
+				<li><a href="../projects.html">Projects</a></li>
+				<li><a href="../tutorials.html">Programming Tutorials</a></li>
+			</ul>
+		</nav>
+		
+		<br/><br/>
+		
+		<main id="panel">
+		
+			<textarea autofocus rows="10" style="width:40%" wrap="soft" id="input" oninput="convert()" placeholder="Hex innput..."></textarea>
+			<button onclick="copyOutput()">Copy Output</button>
+			<!--<select onchange="setBaseFrom(this.value)">
+				<option value="ascii" selected="selected">ASCII</option>
+				<option value="16">Hex</option>
+				<option value="2">Binary</option>
+				<option value="10">Decimal</option>
+			</select>
+			<select onchange="setBaseTo(this.value)">
+				<option value="ascii">ASCII</option>
+				<option value="16" selected="selected">Hex</option>
+				<option value="2">Binary</option>
+				<option value="10">Decimal</option>
+			</select>-->
+			<textarea readonly rows="10" style="width:40%" wrap="soft" id="output" placeholder="Binary output..."></textarea>
+			
+		
+		</main>
+		
+	</body>
+	
+	<script>
+		
+		function convert() {
+			var input = document.getElementById("input").value;
+			var output = "";
+			
+			for (var i = 0; i < input.length; i++) {
+				output += parseInt(input[i], 16).toString(2).lpad("0", 4);
+				if (i % 2 == 1 && i < input.length - 1) {
+					output += " ";
+				}
+			}
+			if(input.length % 2 == 1) {
+				output = output.substr(0, output.length - 4) + "0000" + output.substr(-4);
+			}
+			
+			document.getElementById("output").value = output;
+		}
+		
+		function copyOutput() {
+			var textField = document.getElementById("output");
+			textField.select();
+			textField.setSelectionRange(0, 99999); //For mobile devices
+			document.execCommand("copy");
+		}
+		
+		String.prototype.lpad = function(pad, length) {
+			var str = this;
+			while (str.length < length) {
+				str = pad + str;
+			}
+			return str;
+		}
+		
+	</script>
+	
+<html>
