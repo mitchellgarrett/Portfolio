@@ -1,10 +1,8 @@
 /*To load an external style sheet, in the head do: <link rel="stylesheet" type="text/css" href="NAMEOFFILE.css">*/
 
 header {
-	display: block;
-	text-align: center;
-	font-weight: bold;
-	font-size: 3em;
+	margin: 0;
+	padding: 0;
 }
 
 body {
