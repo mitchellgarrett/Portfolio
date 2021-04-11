@@ -103,7 +103,7 @@ function drawGraph(xs, ys) {
 		}
 		
 		ctx.beginPath();
-		ctx.arc(MIN_X + xs[i] * WIDTH, MAX_Y - ys[i] * HEIGHT, 10, 0, 2 * Math.PI);
+		ctx.arc(MIN_X + xs[i] * WIDTH, MAX_Y - ys[i] * HEIGHT, 15, 0, 2 * Math.PI);
 		ctx.fill();
 		ctx.stroke();
 		ctx.fillStyle = "black";
