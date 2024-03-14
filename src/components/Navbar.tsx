@@ -1,10 +1,13 @@
+import { useNavigate } from "react-router";
 import "../styles/Navbar.css";
 
 function Navbar() {
+    const navigate = useNavigate();
+
     return (
         <div className="Navbar">
-            <a href="/">Home</a>
-            <a href="/howdy">About</a>
+            <button onClick={() => navigate("/")}>Home</button>
+            <button onClick={() => navigate("/howdy")}>About</button>
             <a href="https://github.com/mitchellgarrett">Github</a>
             <hr />
         </div>
