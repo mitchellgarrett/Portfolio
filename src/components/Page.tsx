@@ -1,11 +1,11 @@
 import { PropsWithChildren } from "react";
-import Navbar from "./Navbar";
+import Header from "./Header";
 import Footer from "./Footer";
 
 function Page(props: PropsWithChildren) {
     return (
         <>
-            <Navbar />
+            <Header />
             {props.children}
             <Footer />
         </>
