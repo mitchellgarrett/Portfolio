@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Page from "../components/Page";
 
 function Home() {
@@ -6,7 +7,7 @@ function Home() {
             <h1>Posts</h1>
             <p>Stay tuned for upcoming articles.</p>
             <p>
-                In the meantime, see what I'm <a href="/howdy">about</a>.
+                In the meantime, see what I'm <Link to="/howdy">about</Link>.
             </p>
         </Page>
     );
