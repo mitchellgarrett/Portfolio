@@ -5,6 +5,21 @@
     text-align: right;
 }
 
+.Navbar button {
+    color: inherit;
+    text-decoration: none;
+    font-size: inherit;
+    font-style: italic;
+    padding-left: 2rem;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.Navbar button:hover {
+    font-weight: bold;
+}
+
 .Navbar a {
     color: inherit;
     text-decoration: none;
