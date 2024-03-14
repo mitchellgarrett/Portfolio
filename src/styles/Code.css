@@ -1,0 +1,18 @@
+res {
+    color: darkred;
+    font-weight: bold;
+}
+
+obj {
+    color: green;
+    font-weight: bold;
+}
+
+func {
+    font-weight: bold;
+}
+
+prim {
+    color: magenta;
+    font-weight: bold;
+}

@@ -1,8 +1,16 @@
 :root {
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 * {
     font-family: "Courier New", Courier, monospace;
+}
+
+a {
+    color: blue;
+    font-style: italic;
+    text-decoration: none;
 }
 
 code {

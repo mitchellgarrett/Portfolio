@@ -1,0 +1,17 @@
+.Navbar {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: right;
+}
+
+.Navbar a {
+    color: inherit;
+    text-decoration: none;
+    font-style: italic;
+    padding-left: 2rem;
+}
+
+.Navbar a:hover {
+    font-weight: bold;
+}
