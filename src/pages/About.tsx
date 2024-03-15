@@ -1,6 +1,8 @@
 import Page from "../components/Page";
 
 function About() {
+    document.title = "About";
+
     return (
         <Page>
             <h1>About</h1>
