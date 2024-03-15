@@ -1,7 +1,8 @@
 .Footer {
-    position: fixed;
-    bottom: 0;
-    width: 50%;
+    margin-top: auto;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     text-align: center;
     color: gray;
     font-size: small;
