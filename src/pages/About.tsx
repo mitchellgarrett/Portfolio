@@ -1,7 +1,7 @@
 import Page from "../components/Page";
 
 function About() {
-    document.title = "About";
+    document.title = "Mitchell Garrett";
 
     return (
         <Page>
