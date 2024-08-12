@@ -5,15 +5,15 @@ import NoPage from "./pages/NoPage";
 import Article from "./pages/Article";
 
 function App() {
-    const articles = ["2024-03-14"];
+    const articles_to_load = ["2024-03-14", "2024-03-15"];
 
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home articles={articles} />} />
+                <Route path="/" element={<Home articles_to_load={articles_to_load} />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/howdy" element={<About />} />
-                <>{loadArticles(articles)}</>
+                <>{loadArticles(articles_to_load)}</>
                 <Route path="*" element={<NoPage />} />
             </Routes>
         </BrowserRouter>

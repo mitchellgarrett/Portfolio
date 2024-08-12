@@ -2,44 +2,34 @@ import "../styles/Home.css";
 import { Link } from "react-router-dom";
 import Page from "../components/Page";
 import { useEffect, useState } from "react";
-import { getArticleTitleAndDate } from "../utilities/ArticleParser";
+import { getArticleMetadata } from "../utilities/ArticleParser";
 
 interface HomeProps {
-    articles: string[];
+    articles_to_load: string[];
 }
 
-interface ArticleData {
-    key: string;
+interface ArticleMetadata {
+	key: string;
+    path: string;
+	link: string;
     title: string;
     date: string;
 }
 
 function Home(props: HomeProps) {
-    const [articleData, setArticleData] = useState<ArticleData[]>([]);
+    const [articleMetadata, setArticleMetadata] = useState<ArticleMetadata[]>([]);
 
-    useEffect(() => {
-        setArticleData([]);
-        props.articles.forEach((article) => {
-            const path = `articles/${article}.html`;
-            getArticleTitleAndDate(path).then(({ title, date }) => {
-                if (!articleData.includes({ key: article, title, date }))
-                    setArticleData([
-                        ...articleData,
-                        { key: article, title, date },
-                    ]);
-            });
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.articles]);
-
+	useEffect(() => {
+		Promise.all(props.articles_to_load.map((article) => getArticleMetadata(article, `articles/${article}.html`, `article/${article}`))).then(articles => setArticleMetadata(articles));
+	}, [props.articles_to_load]);
+	
     document.title = "Mitchell Garrett";
-
     return (
         <Page>
             <h1>Articles</h1>
             <>
-                {articleData.length > 0 ? (
-                    loadArticles(articleData)
+                {articleMetadata.length > 0 ? (
+                    loadArticles(articleMetadata)
                 ) : (
                     <>{loadDefaultMessage()}</>
                 )}
@@ -48,14 +38,19 @@ function Home(props: HomeProps) {
     );
 }
 
-function loadArticles(articleData: ArticleData[]) {
-    return articleData.map(({ key, title, date }) => (
-        <div key={key}>
-            <Link to={`/article/${key}`}>{title}</Link>
-            <br />
-            <time>{date}</time>
-        </div>
-    ));
+function loadArticles(articleMetadata: ArticleMetadata[]) {
+    return articleMetadata
+		// Sort into most recent order
+		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+		// Return link with title and date
+		.map(({ key, link, title, date }) => (
+			<div key={key}>
+				<Link to={link}>{title}</Link>
+				<br />
+				<time>{date}</time>
+			</div>
+    	)
+	);
 }
 
 function loadDefaultMessage() {

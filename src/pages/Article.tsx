@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import {
     getFileContent,
-    getArticleTitleAndDate,
+    getArticleMetadata,
 } from "../utilities/ArticleParser";
 import Page from "../components/Page";
+import "../styles/Code.css";
 
 interface ArticleProps {
     filename: string;
@@ -15,10 +16,11 @@ function Article(props: ArticleProps) {
     const [content, setContent] = useState("");
 
     const fullpath = `${ARTICLES_FOLDER}/${props.filename}`;
-
+	
+	// TODO: Pass parameters into props
     useEffect(() => {
         getFileContent(fullpath).then(setContent).catch(console.error);
-        getArticleTitleAndDate(fullpath).then(({ title, date }) => {
+        getArticleMetadata("key", fullpath, "link").then(({ title, date }) => {
             document.title = title!;
         });
     }, [fullpath]);

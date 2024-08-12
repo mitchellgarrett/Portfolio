@@ -1,3 +1,8 @@
+pre {
+	border: 1px solid lightgray;
+	padding: 1rem;
+}
+
 res {
     color: darkred;
     font-weight: bold;
@@ -15,4 +20,9 @@ func {
 prim {
     color: magenta;
     font-weight: bold;
+}
+
+rem {
+	color: #6A9955;
+	font-style: italic;
 }
