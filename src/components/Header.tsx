@@ -10,7 +10,7 @@ function Header() {
             <div className="right">
                 <Link to="/">Home</Link>
                 <Link to="/howdy">About</Link>
-                <a href="https://github.com/mitchellgarrett">Github</a>
+                <a href="https://github.com/mitchellgarrett" target="_blank" rel="noreferrer">Github</a>
             </div>
             <hr />
         </div>

@@ -4,6 +4,7 @@ import {
     getArticleMetadata,
 } from "../utilities/ArticleParser";
 import Page from "../components/Page";
+import "../styles/Article.css"
 import "../styles/Code.css";
 
 interface ArticleProps {

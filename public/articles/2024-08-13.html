@@ -1,0 +1,37 @@
+<article>
+	<title>Rendering</title>
+	<h1>[Raylib] Rendering textures in world space</h1>
+	<time datetime="2024-8-13">August 13, 2024</time>
+	
+	<p>
+		Here we will discuss how to render textures in world space with a 2D camera in Raylib. 
+		By default, texture rendering is done in screen space, meaning you specify sizes and positions in pixels.
+		This is fine for some applications, but in a lot of cases you do not want to be forced to adhere to pixel boundaries,
+		and using arbitrary coordinates (world coordinates) is very valuable as it is not dependent on the size of the screen.
+	</p>
+	
+	<h3>Screen space example</h3>
+<pre>
+<obj>int</obj> <func>main</func>() {
+	<rem>// Initialize window</rem>
+	<res>const</res> <obj>int</obj> screen_width = <prim>480</prim>;
+	<res>const</res> <obj>int</obj> screen_height = <prim>720</prim>;
+	<func>InitWindow</func>(screen_width, screen_height, "Screen Space");
+	
+	<rem>// Initialize texture</rem>
+	
+	<obj>Image</obj> image = <func>GenImageChecked</func>(<prim>100</prim>, <prim>100</prim>, <prim>50</prim>, <prim>50</prim>, COLOR_WHITE, COLOR_BLACK); 
+	
+	<rem>// Render texture</rem>
+	<res>while</res> (!<func>WindowShouldClose</func>()) {
+		
+	}
+}
+</pre>
+
+	<h3>What we want</h3>
+<pre>
+&hellip;
+<func>DrawTextureEx</func>(<obj>texture</obj>, <obj>world_position</obj>, <prim>0</prim>, <obj>COLOR_WHITE</obj>);
+</pre>
+</article>

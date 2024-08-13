@@ -1,6 +1,7 @@
 pre {
 	border: 1px solid lightgray;
 	padding: 1rem;
+	tab-size: 4;
 }
 
 res {
@@ -26,3 +27,12 @@ rem {
 	color: #6A9955;
 	font-style: italic;
 }
+
+/* TODO:
+int
+char
+string
+class
+keyword
+var
+*/

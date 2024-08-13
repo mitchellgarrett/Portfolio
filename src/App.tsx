@@ -5,7 +5,9 @@ import NoPage from "./pages/NoPage";
 import Article from "./pages/Article";
 
 function App() {
-    const articles_to_load = ["2024-03-14", "2024-03-15"];
+    const articles_to_load = [
+		"2024-03-14", "2024-03-15", "2024-08-13"
+	];
 
     return (
         <BrowserRouter>
